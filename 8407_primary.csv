@@ -1,0 +1,3 @@
+Oligo,Start,Length,Melting Temperature (C),GC Percentage,Overall Self Complementarity,3' Self Complementarity,Nucleotide Sequence 
+Left Primer,1177,20,59.98,45.00,5.00,0.00,ATGGCATTTGCTCTTGCTCT
+Right Primer,1375,20,59.94,45.00,3.00,0.00,TGTTCACCACCTCAAATCCA

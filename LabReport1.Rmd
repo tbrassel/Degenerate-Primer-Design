@@ -1,6 +1,6 @@
 ---
-title: "Degenerate PCR Primer Design by Shared Sequence Domain Identification Across Six Members of the *Arabidopsis* NHX Gene Family"
-author: "**Name:** Tyler Brassel"
+title: "Degenerate primer design through shared sequence domain identification across six members of the *Arabidopsis* NHX gene family."
+author: "**Author:** Tyler Brassel"
 date: '**Date:** `r format(Sys.time(), "%B %d, %Y")`'
 output:
   html_document:
@@ -15,6 +15,8 @@ output:
       smooth_scroll: yes
 ---
 
+#### **Lab Exercise 1**
+
 ```{r library, message = FALSE, include = FALSE}
 library(dplyr)
 library(readr)
@@ -25,40 +27,20 @@ library(xml2)
 
 # **Abstract**
 ***
-### This is my abstract
+### Degenerate primer design is important when designing PCR experiments to identify novel genes of interest in plant gene families. In this laboratory exercise we apply ClustalW multiple sequence alignment to 6 members of the *Arabidopsis* NHX gene family and identify conserved amino acid sequences. Consideration of their degeneracies helps us identify which primers might work best from the 10 possible primer sequences predicted by the j-CODEHOP platform. We then use nucleotide sequences from 2 gene family members to generate specific primers using nucleotide sequences instead of amino acid sequences and compare what makes one primer pair more optimal than another. We can conclude that degenerate primer design must be tailored to the proposed experimental design constraints and that it is up to the researcher to decide which primers are best for their individual needs. 
 
 # **Introduction**
 ***
-### Objectives
-
+### The study and modification of plant genomes to produce better transgenic plants is of great interest to the plant science community. In order to modify plant genomes we must first quantify the genes that regulate their biological processes. Many plant genes are further classified into "gene families", genes that express similar proteins that either share the same function, express a new function, or are regulated in different ways<sup><a href="#note1">1</a></sup>. In order to isolate these genes for study, we must design DNA probes complementary to the genes of interest, known as primers, for gene amplification using polymerase chain reaction (PCR). We know that multiple codons can code for the same amino acid, referred to as the "wobble hypothesis" which contributes to the degeneracy of the genetic code. We also know that genes of the same gene family share some similarity with each other, and so by aligning the amino acid sequences using bioinformatics software we can identify conserved domains between all family members. By designing primers that take into account this similarity in amino acid sequences instead of nucleotide sequences, we can use the wobble hypothesis to our advantage to design non-specific primers. This can tell us additional information about which proposed primers might work best to identify novel genes. 
 
 # **Methods**
 ***
-### Stuff
+### All information concerning the methodology of this lab exercise can be found in the class lab manual<sup><a href="#note1">1</a></sup>. The author used R for data analysis and presentation. Full source code can be found [here](https://github.com/tbrassel/BIT161B-Lab1) with partial code snippets embedded in the document.
 
 # **Results**
 ***
-### How many regions can you locate<sup><a href="#note1">1</a></sup>?
 
-> I can locate 3 regions. 
-
-Also note that four of the six NHX gene family members share > 56 % sequence similarity, while the
-remaining two genes are ~79 % similar to each other, but only ~22% similar to any other NHX gene.
-
-2. Can you identify these two genes simply by looking at the multiple sequence alignment?
-
-> Yes, by examining the sequence alignment I can see that genes AAM08407.1 and AAM08406.1 are the above referenced genes with 79% similarity to each other. I see this by looking at highly conserved regions denoted by a ":"; in most cases it is those two genes that are an exact match to each other, while the remaining genes tend to share the same, yet different, amino acid.  
-
-3. Would you expect to find more regions of conservation if these two genes were removed
-from the multiple alignment?
-
-> Yes, I would expect to find more regions of conservation. Since I know that the two genes are very similar to each other and not to the remaining four genes, removing them would leave the four genes with ~56% sequence similarity.
-
-
-4. Do you feel that these regions are ideal for degenerate primer design? Why or why not?
-* Region 1: LLPPIIF (94-100), degeneracy = 6x6x4x4x3x3x2 = 10,368, YTNYTNCCNCCNATHATHTTY
-* Region 2: LVFGE (186-190), degeneracy = 6x4x2x4x2 = 384, YTNGTNTTYGGNGAR 
-* Region 3: SYMLAE (271-276), degeneracy = 6x2x1x6x4x2 = 576, WSNTAYATGYTNGCNGAR
+### The first analysis of this experimental exercise involved using ClustalW<sup><a href="#note8">8</a></sup> as implemented by the Kyoto University Bioinformatics Center<sup><a href="#note2">2</a></sup> to identify conserved amino acid sequences shared by the six members of the *Arabidopsis* NHX gene family identified in the lab manual<sup><a href="#note1">1</a></sup>. The CLustalW algorithm aligns the sequences and outputs a conservation score for each amino acid. A "*" denotes complete complementarity, a ":" significant complemtarity, and a "." denotes weak complementarity. The website uses spaces to identify regions with no correspondance, here represented using underscores. The results are summarized in tables 1a - 1c below as part of 50 amino acid blocks further split into groups of 10. The groups containing the complementary regions are highlighted in gray. Click each button to see their respective summary tables.
 
 ***
 
@@ -72,7 +54,9 @@ kable(table1a, "html", align="l") %>%
   row_spec(7, bold = TRUE, background = "#e6e6e6") %>%
   column_spec(6, background = "#e6e6e6")
 ```
-##### *Table 1a: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*
+<h5>Table 1a: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.</h5>
+
+***
 
 #### Conserved Region 2
 ```{r 2, echo = TRUE, message = FALSE}
@@ -83,7 +67,9 @@ kable(table1b, "html", align = "l") %>%
   row_spec(7, bold = TRUE, background = "#e6e6e6") %>%
   column_spec(5, background = "#e6e6e6")
 ```
-##### *Table 1b: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*
+<h5>Table 1b: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.</h5>
+
+***
 
 #### Conserved Region 3
 ```{r 3, echo = TRUE, message = FALSE}
@@ -94,9 +80,11 @@ kable(table1c, "html", align = "l") %>%
   row_spec(7, bold = TRUE, background = "#e6e6e6") %>%
   column_spec(4, background = "#e6e6e6")
 ```
-##### *Table 1c: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*
+<h5>Table 1c: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.</h5>
 
-###
+***
+
+### Multiple sequence alignment using ClustalW identified 3 conserved regions further summarized in table 2 below. Degeneracy scores were calculated for each conserved region by multiplying the individual amino acid residues by the numer of codons which could code for them<sup><a href="#note1">1</a></sup>. In addition, the amino acid sequences were converted to nucleotide sequences using an online translation tool<sup><a href="#note5">5</a></sup>. Preliminary examination shows that conserved region 1 exhibits a much higher degeneracy score than conserved regions 2 and 3. 
 
 ***
 
@@ -106,39 +94,26 @@ kable(table2, "html", align = "l") %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%
   row_spec(0:3, monospace = TRUE)
 ```
-
-##### *Table 2: A summary of the identified conserved amino acid stretches of length 5 or greater from the Clustal 2.1 multiple sequence alignment generated from 6 members of the Arabidopsis NHX gene family.*
+<h5>Table 2: A summary of the identified conserved amino acid stretches of length 5 or greater from the Clustal 2.1 multiple sequence alignment generated from 6 members of the <i>Arabidopsis</i> NHX gene family.</h5>
 
 ***
-
-> Table 2 summarizes  Region 1 has a degeneracy value that is much higher then the other two identified regions. A lower degeneracy 
-
-5. Note that predicted oligonucleotide primers may not have been generated for all of the
-conserved amino acid sequence domains that we previously identified in our multiple sequence
-alignment with CLUSTALW - What are some possible reasons for this?
->
-
-6. Do you see any similarities between the oligonucleotide primers predicted by CODEHOP
-and the conserved amino acid stretches from the multiple sequence alignment?
->
-
+### For our third analysis 10 degenerate primer pairs were generated using the j-CODEHOP platform using default settings and ClustalW for multiple sequence alignment, with an equal number in both the forward and reverse directions. These results are reported in Table 3 below.
+***
 ```{r 5, echo = TRUE, message = FALSE}
 table3 <- read_csv('codehopPrimersT.csv')
 kable(table3, "html", align = "l") %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%
-  row_spec(0:3, monospace = TRUE) %>%
+  row_spec(0:10, monospace = TRUE) %>%
   kable_styling() %>%
   scroll_box(width = "105%", height = "450px", fixed_thead = TRUE)
 ```
+<h5>Table 3: Predicted primers output by the j-CODEHOP program using ClustalW for alignment with all other settings kept at default.</h5>
 
-7. Which two primers do you feel best satisfy the requirements for degenerate PCR and why?
->
+***
 
-8. When designing primers for gene amplification, it is important to account for critical factors such
-as primer length, GC content, and melting temperature (among others). Why does this matter? Important concepts concerning primer design can be found at this page (http://bioweb.uwlax.edu/GenWeb/Molecular/seq_anal/primer_design/primer_design.htm)
-and should be discussed briefly in your final report.
-* Min 5, preferrably 6-7bp long
-* Fairly close together, 200-600bp, 400 target (PCR efficiency will decrease, and you will not get much amplification.)
+### The final analysis of this laboratory exercise used the Primer3 platform<sup><a href="#note7">7</a></sup> to generate primer pairs specific to *Arabidopsis* genes AAM08407.1 and AAM08406.1 due to their similarities outlined in the Discussion section. The primary primer pair represents the best predicted result, while the secondary primer pair indicates a less optimal alternative as scored by the Primer3 algorithm using default settings.
+
+***
 
 ### {.tabset .tabset-pills}
 #### AAM08407.1 Primers {.tabset .tabset-pills}
@@ -149,7 +124,9 @@ kable(table4a, "html", align="l") %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%
   row_spec(0:2, monospace = TRUE)
 ```
-<h5>*Table 4a: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*</h5>
+<h5>Table 4a: The primary forward and reverse primers computed for <i>Arabidopsis</i> gene AAM08407.1 using the Primer3 analysis platform.</h5>
+
+***
 
 ##### Secondary
 ```{r 7, echo = TRUE, message = FALSE}
@@ -159,7 +136,9 @@ kable(table4b, "html", align = "l") %>%
   row_spec(0:2, monospace = TRUE) 
 ```
 
-<h5>*Table 4b: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*</h5>
+<h5>Table 4b: A secondary pair of forward and reverse primers computed for <i>Arabidopsis</i> gene AAM08407.1 using the Primer3 analysis platform.</h5>
+
+***
 
 #### AAM08406.1 Primers {.tabset .tabset-pills}
 ##### Primary
@@ -169,7 +148,9 @@ kable(table5a, "html", align = "l") %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%
   row_spec(0:2, monospace = TRUE) 
 ```
-<h5>*Table 5a: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*</h5>
+<h5>Table 5a: The primary forward and reverse primers computed for <i>Arabidopsis</i> gene AAM08406.1 using the Primer3 analysis platform.</h5>
+
+***
 
 ##### Secondary
 ```{r 9, echo = TRUE, message = FALSE}
@@ -178,35 +159,23 @@ kable(table5b, "html", align = "l") %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%
   row_spec(0:2, monospace = TRUE) 
 ```
-<h5>*Table 5b: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*</h5>
+<h5>Table 5b: A secondary pair of forward and reverse primers computed for <i>Arabidopsis</i> gene AAM08407.1 using the Primer3 analysis platform.</h5>
+
+***
 
 # **Discussion**
 ***
-#### Stuff
+### From the results of the Clustal 2.1 multiple sequence alignment I identified three conserved regions that may be suitable for degenerate primer design. Upon closer examination one will notice that genes AAM08407.1 and AAM08406.1 share more similarity with each other than with the other gene family members. This is made apparent by looking the highly conserved regions denoted by a ":"; in most cases it is those two genes that are an exact match to each other, while the remaining genes tend to share the same, yet different, amino acid. According to the lab manual, these two genes are about 79% similar to each other, but only about 22% similar to the other genes, which share 56% similarity. Removal of these genes from the multiple sequence alignment would allow us to identify more regions of conservation, bringing the overall similarity from 22% to 56%. 
+
+### Looking at Table 2 it is clear that conserved regions 2 and 3 are more ideal for degenerate primer design than conserved region 1, as this region has a degeneracy many times that of 2 and 3. Recall that degeneracy is the measure of how uncertain we are of the corresponding nucleotide sequence when given an amino acid sequence due to the wobble hypothesis. The greater the degeneracy, the less specific our primer will be and the greater the chance of it annealing and amplifying genes outside of the target gene family. 
+
+### With this information we can better interpret the results of the CODEHOP analysis of our ClustalW multiple sequence alignment, summarized in Table 3. Many more primers were generated than conserved amino acid sequences because the algorithm first translates the sequence into a multitude of possible DNA sequences for reasons described earlier. In addition, the algorithm outputs a similar number of both forward and reverse primer examples. Examining the amino acid column of Table 3 we can see that predicted reverse primers VFGE-R, YMLA-R, and MLAE-R all correspond to conserved amino acid regions in the multiple sequence alignment results from Table 2. Primer VFGE-R corresponds to conserved region 2 and has a consensus clamp score of 73, while the other two primers correspond to conserved region 3 and have consensus clamp scores of 64 and 63 respectively. Recall that the higher the consensus clamp score, the higher sequence similarity across all members in the multiple sequence alignment. Since these three examples all share the same degeneracy score of 64, we can conclude that primers VFGE-R and YMLA-R might be the best candidates for novel gene isolation based on their consensus clamp scores and similarity to highly conserved sequence domains. 
+
+### While we can predict possible degenrate primers using a given amino acid sequence from proteins within the same gene family, the more traditional approach is to use the nucleotide sequence of a gene of interest directly. Tables 4 and 5 summarize the output of the Primer3 platform when used to analyze the sequences of NHX genes AAM08407.1 and AAM08406.1. We can see that while the primary and secondary primers of AAM08407.1 vary greatly in their 3' complementarity and nucleotide sequences, both primer pairs of AAM08406.1 are similar and vary only in their melting temperatures. While using individual nucleotide sequences to generate primer pairs eliminates the uncertainty of translating amino acid sequences to cDNA, this may exclude genes of the same gene family that do not contain much if any of the same sequences yet still code for functionally similar proteins. This is why using multiple different primer pairs for the same gene can be beneficial for isolation, as the more sites we can target the more genetic material we can recover during our experiment for further analysis. 
 
 # **Conclusion**
 ***
-#### Stuff
-
-# **Supplementary Figures**
-***
-```
-#### {.tabset .tabset-pills}
-##### Conserved Region 1
-```{r, echo=FALSE, out.height="10%", out.width="10%"}
-include_graphics("./pictures/region1.png")
-```
-
-##### Conserved Region 2
-```{r, echo=FALSE, out.height="8%", out.width="8%"}
-include_graphics("./pictures/region2.png")
-```
-
-##### Conserved Region 3
-```{r, echo=FALSE, out.height="10%", out.width="10%"}
-include_graphics("./pictures/region3.png")
-```
-```
+### Degenerate primer design through bioinformatic analysis requires consideration of multiple approaches to best predict which primer sequence will most effectively probe for novel members of a plant gene family. Many factors, such as primer melting temperature and 3' end complementarity must be considered to narrow down the results of these approaches<sup><a href="#note4">4</a></sup>. Complementarity is especially important to consider as it indicates the probability of a primer sequence annealing to itself rather than the target sequence. The 3' end of the primer is particularly succeptable to dimer formation<sup><a href="#note4">4</a></sup>.  Even with careful consideration and data analysis, degenerate primer design is dependent on the constraints of the proposed PCR experiment, with different algorithms alowing varying levels of customization for a particular need. In addition, it is often necesscary to convert the file outputs of bioinformatics tools to more human readable formats for the benefits of the researcher and reader alike. Degenerate primer design is not an exact process and it comes down to the researcher to consider all of the information available to choose the best set of primers. 
 
 # **References**
 ***

@@ -1,0 +1,233 @@
+---
+title: "Degenerate PCR Primer Design by Shared Sequence Domain Identification Across Six Members of the *Arabidopsis* NHX Gene Family"
+author: "**Name:** Tyler Brassel"
+date: '**Date:** `r format(Sys.time(), "%B %d, %Y")`'
+output:
+  html_document:
+    highlight: tango
+    number_sections: no
+    code_folding: hide
+    theme: lumen
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+---
+
+```{r library, message = FALSE, include = FALSE}
+library(dplyr)
+library(readr)
+library(knitr)
+library(kableExtra)
+library(xml2)
+```
+
+# **Abstract**
+***
+### This is my abstract
+
+# **Introduction**
+***
+### Objectives
+
+
+# **Methods**
+***
+### Stuff
+
+# **Results**
+***
+### How many regions can you locate<sup><a href="#note1">1</a></sup>?
+
+> I can locate 3 regions. 
+
+Also note that four of the six NHX gene family members share > 56 % sequence similarity, while the
+remaining two genes are ~79 % similar to each other, but only ~22% similar to any other NHX gene.
+
+2. Can you identify these two genes simply by looking at the multiple sequence alignment?
+
+> Yes, by examining the sequence alignment I can see that genes AAM08407.1 and AAM08406.1 are the above referenced genes with 79% similarity to each other. I see this by looking at highly conserved regions denoted by a ":"; in most cases it is those two genes that are an exact match to each other, while the remaining genes tend to share the same, yet different, amino acid.  
+
+3. Would you expect to find more regions of conservation if these two genes were removed
+from the multiple alignment?
+
+> Yes, I would expect to find more regions of conservation. Since I know that the two genes are very similar to each other and not to the remaining four genes, removing them would leave the four genes with ~56% sequence similarity.
+
+
+4. Do you feel that these regions are ideal for degenerate primer design? Why or why not?
+* Region 1: LLPPIIF (94-100), degeneracy = 6x6x4x4x3x3x2 = 10,368, YTNYTNCCNCCNATHATHTTY
+* Region 2: LVFGE (186-190), degeneracy = 6x4x2x4x2 = 384, YTNGTNTTYGGNGAR 
+* Region 3: SYMLAE (271-276), degeneracy = 6x2x1x6x4x2 = 576, WSNTAYATGYTNGCNGAR
+
+***
+
+### {.tabset .tabset-pills}
+#### Conserved Region 1
+```{r 1, echo = TRUE, message = FALSE}
+table1a <- read_csv('clustal_aln_table1.csv')
+kable(table1a, "html", align="l") %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  row_spec(0:7, monospace = TRUE) %>%
+  row_spec(7, bold = TRUE, background = "#e6e6e6") %>%
+  column_spec(6, background = "#e6e6e6")
+```
+##### *Table 1a: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*
+
+#### Conserved Region 2
+```{r 2, echo = TRUE, message = FALSE}
+table1b <- read_csv('clustal_aln_table2.csv')
+kable(table1b, "html", align = "l") %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  row_spec(0:7, monospace = TRUE) %>% 
+  row_spec(7, bold = TRUE, background = "#e6e6e6") %>%
+  column_spec(5, background = "#e6e6e6")
+```
+##### *Table 1b: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*
+
+#### Conserved Region 3
+```{r 3, echo = TRUE, message = FALSE}
+table1c <- read_csv('clustal_aln_table3.csv')
+kable(table1c, "html", align = "l") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  row_spec(0:7, monospace = TRUE) %>% 
+  row_spec(7, bold = TRUE, background = "#e6e6e6") %>%
+  column_spec(4, background = "#e6e6e6")
+```
+##### *Table 1c: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*
+
+###
+
+***
+
+```{r 4, echo = TRUE, message = FALSE}
+table2 <- read_tsv('Table1_conserved_regions.csv')
+kable(table2, "html", align = "l") %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  row_spec(0:3, monospace = TRUE)
+```
+
+##### *Table 2: A summary of the identified conserved amino acid stretches of length 5 or greater from the Clustal 2.1 multiple sequence alignment generated from 6 members of the Arabidopsis NHX gene family.*
+
+***
+
+> Table 2 summarizes  Region 1 has a degeneracy value that is much higher then the other two identified regions. A lower degeneracy 
+
+5. Note that predicted oligonucleotide primers may not have been generated for all of the
+conserved amino acid sequence domains that we previously identified in our multiple sequence
+alignment with CLUSTALW - What are some possible reasons for this?
+>
+
+6. Do you see any similarities between the oligonucleotide primers predicted by CODEHOP
+and the conserved amino acid stretches from the multiple sequence alignment?
+>
+
+```{r 5, echo = TRUE, message = FALSE}
+table3 <- read_csv('codehopPrimersT.csv')
+kable(table3, "html", align = "l") %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  row_spec(0:3, monospace = TRUE) %>%
+  kable_styling() %>%
+  scroll_box(width = "105%", height = "450px", fixed_thead = TRUE)
+```
+
+7. Which two primers do you feel best satisfy the requirements for degenerate PCR and why?
+>
+
+8. When designing primers for gene amplification, it is important to account for critical factors such
+as primer length, GC content, and melting temperature (among others). Why does this matter? Important concepts concerning primer design can be found at this page (http://bioweb.uwlax.edu/GenWeb/Molecular/seq_anal/primer_design/primer_design.htm)
+and should be discussed briefly in your final report.
+* Min 5, preferrably 6-7bp long
+* Fairly close together, 200-600bp, 400 target (PCR efficiency will decrease, and you will not get much amplification.)
+
+### {.tabset .tabset-pills}
+#### AAM08407.1 Primers {.tabset .tabset-pills}
+##### Primary
+```{r 6, echo = TRUE, message = FALSE}
+table4a <- read_csv('8407_primary.csv')
+kable(table4a, "html", align="l") %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  row_spec(0:2, monospace = TRUE)
+```
+<h5>*Table 4a: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*</h5>
+
+##### Secondary
+```{r 7, echo = TRUE, message = FALSE}
+table4b <- read_csv('8407_secondary.csv')
+kable(table4b, "html", align = "l") %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  row_spec(0:2, monospace = TRUE) 
+```
+
+<h5>*Table 4b: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*</h5>
+
+#### AAM08406.1 Primers {.tabset .tabset-pills}
+##### Primary
+```{r 8, echo = TRUE, message = FALSE}
+table5a <- read_csv('8406_primary.csv')
+kable(table5a, "html", align = "l") %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  row_spec(0:2, monospace = TRUE) 
+```
+<h5>*Table 5a: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*</h5>
+
+##### Secondary
+```{r 9, echo = TRUE, message = FALSE}
+table5b <- read_csv('8406_secondary.csv')
+kable(table5b, "html", align = "l") %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  row_spec(0:2, monospace = TRUE) 
+```
+<h5>*Table 5b: Shown here is a subset of the Clustal 2.1 multiple sequence alignment displayed in an easy to read format with the region of interest highlighted.*</h5>
+
+# **Discussion**
+***
+#### Stuff
+
+# **Conclusion**
+***
+#### Stuff
+
+# **Supplementary Figures**
+***
+```
+#### {.tabset .tabset-pills}
+##### Conserved Region 1
+```{r, echo=FALSE, out.height="10%", out.width="10%"}
+include_graphics("./pictures/region1.png")
+```
+
+##### Conserved Region 2
+```{r, echo=FALSE, out.height="8%", out.width="8%"}
+include_graphics("./pictures/region2.png")
+```
+
+##### Conserved Region 3
+```{r, echo=FALSE, out.height="10%", out.width="10%"}
+include_graphics("./pictures/region3.png")
+```
+```
+
+# **References**
+***
+<h4><p  id="note1"><sup>1</sup>Experiment 1: Bioinformatics. (n.d.). BIT161B SQ2020. Retrieved April 14, 2020, from https://canvas.ucdavis.edu/courses/461005/files/folder/Laboratory%20Manual?preview=8296468</h4>
+
+<h4><p  id="note2"><sup>2</sup> Multiple Sequence Alignment—CLUSTALW. (n.d.). Retrieved April 14, 2020, from https://www.genome.jp/tools-bin/clustalw</h4>
+
+<h4><p  id="note3"><sup>3</sup> NHX and Arabidopsis—Protein—NCBI. (n.d.). Retrieved April 14, 2020, from https://www.ncbi.nlm.nih.gov/protein/?term=NHX%20and%20Arabidopsis&utm_source=gquery&utm_medium=search</h4>
+
+<h4><p  id="note4"><sup>4</sup> Primer Design. (n.d.). Retrieved April 14, 2020, from http://bioweb.uwlax.edu/GenWeb/Molecular/seq_anal/primer_design/primer_design.htm
+</h4>
+
+<h4><p  id="note5"><sup>5</sup> Protein to DNA reverse translation. (n.d.). Retrieved April 14, 2020, from http://www.biophp.org/minitools/protein_to_dna/demo.php</h4>
+
+<h4><p  id="note6"><sup>6</sup> Shin-Lin Tu, Jeannette P. Staheli, Colum McClay, Kathleen McLeod, Timothy M. Rose and Chris Upton. 2018
+Base-By-Base Version 3: New Comparative Tools for Large Virus Genomes. Viruses 2018, 10(11), 637; https://doi.org/10.3390/v10110637.</h4>
+
+<h4><p  id="note7"><sup>7</sup> Steve Rozen, Helen J. Skaletsky (1998) Primer3. Code available at http://www-genome.wi.mit.edu/genome_software/other/primer3.html.</h4>
+
+<h4><p  id="note8"><sup>8</sup> Thompson, J. D., Higgins, D. G., & Gibson, T. J. (1994). CLUSTAL W: improving the sensitivity of progressive multiple sequence alignment through sequence weighting, position-specific gap penalties and weight matrix choice. Nucleic acids research, 22(22), 4673–4680. https://doi.org/10.1093/nar/22.22.4673</h4>
+
+
+
+
